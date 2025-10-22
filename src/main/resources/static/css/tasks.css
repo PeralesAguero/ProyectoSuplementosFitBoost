@@ -1,0 +1,12 @@
+/* Estilos específicos para la vista de tareas */
+.task-card {
+  border-radius: 12px;
+  transition: transform 0.12s ease-in-out, box-shadow 0.12s ease-in-out;
+}
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.task-card .card-body {
+  min-height: 140px;
+}

@@ -14,9 +14,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
   <!-- Estilos propios -->
-  <link rel="stylesheet" href="src/main/resources/static/styleIndex.css"> 
-  <script src="carrito.js"></script>
-  <script src="index.js"></script>
+  <link rel="stylesheet" href="/style.css"> 
+  <script src="/carrito.js"></script>
+  <script src="/index.js"></script>
 </head>
 
 <body>
@@ -34,9 +34,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar-star">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a href="#" class="nav-link active">Inicio</a></li>
-          <li class="nav-item"><a href="/Productos" class="nav-link">Productos</a></li>
+          <li class="nav-item"><a href="/" class="nav-link active">Inicio</a></li>
+          <li class="nav-item"><a href="/productos" class="nav-link">Productos</a></li>
           <li class="nav-item"><a href="/nosotros" class="nav-link">Nosotros</a></li>
+          <li class="nav-item"><a href="/tasks" class="nav-link">Tareas</a></li>
           <!-- Carrito de compras -->
           <li class="nav-item ms-3">
             <a href="#" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#modalCarrito">
@@ -80,13 +81,13 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="imagenes/portada01.png" class="d-block w-100" alt="Portada suplementos deportivos 1">
+        <img th:src="@{/imagenes/portada01.png}" class="d-block w-100" alt="Portada suplementos deportivos 1">
       </div>
       <div class="carousel-item">
-        <img src="imagenes/portada02.jpg" class="d-block w-100" alt="Portada suplementos deportivos 2">
+        <img th:src="@{/imagenes/portada02.jpg}" class="d-block w-100" alt="Portada suplementos deportivos 2">
       </div>
       <div class="carousel-item">
-        <img src="imagenes/portada03.jpg" class="d-block w-100" alt="Portada suplementos deportivos 3">
+        <img th:src="@{/imagenes/portada03.jpg}" class="d-block w-100" alt="Portada suplementos deportivos 3">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselE1" data-bs-slide="prev">
@@ -134,7 +135,7 @@
         <!-- Producto 1 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple1.png" class="card-img-top" alt="Proteína whey">
+            <img th:src="@{/imagenes/suple1.png}" class="card-img-top" alt="Proteína whey">
             <div class="card-body">
               <h5 class="card-title">Proteína Whey</h5>
               <p class="card-text">Aumenta tu masa muscular y mejora tu recuperación.</p>
@@ -146,7 +147,7 @@
         <!-- Producto 2 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple2.png" class="card-img-top" alt="Creatina monohidratada">
+            <img th:src="@{/imagenes/suple2.png}" class="card-img-top" alt="Creatina monohidratada">
             <div class="card-body">
               <h5 class="card-title">Creatina</h5>
               <p class="card-text">Mejora tu fuerza, potencia y rendimiento deportivo.</p>
@@ -158,7 +159,7 @@
         <!-- Producto 3 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple3.png" class="card-img-top" alt="BCAA aminoácidos">
+            <img th:src="@{/imagenes/suple3.png}" class="card-img-top" alt="BCAA aminoácidos">
             <div class="card-body">
               <h5 class="card-title">BCAA</h5>
               <p class="card-text">Recuperación y energía en entrenamientos intensos.</p>
@@ -170,7 +171,7 @@
         <!-- Producto 4 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple4.png" class="card-img-top" alt="Pre workout suplemento">
+            <img th:src="@{/imagenes/suple4.png}" class="card-img-top" alt="Pre workout suplemento">
             <div class="card-body">
               <h5 class="card-title">Pre-Workout</h5>
               <p class="card-text">Explosión de energía y enfoque para tus rutinas.</p>
@@ -182,7 +183,7 @@
         <!-- Producto 5 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple5.png" class="card-img-top" alt="Multivitamínico">
+            <img th:src="@{/imagenes/suple5.png}" class="card-img-top" alt="Multivitamínico">
             <div class="card-body">
               <h5 class="card-title">Multivitamínico</h5>
               <p class="card-text">Complejo vitamínico para tu salud y bienestar diario.</p>
@@ -194,7 +195,7 @@
         <!-- Producto 6 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple6.png" class="card-img-top" alt="Omega 3">
+            <img th:src="@{/imagenes/suple6.png}" class="card-img-top" alt="Omega 3">
             <div class="card-body">
               <h5 class="card-title">Omega 3</h5>
               <p class="card-text">Mejora la salud cardiovascular y cognitiva.</p>
@@ -206,7 +207,7 @@
         <!-- Producto 7 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple7.png" class="card-img-top" alt="Accesorios de gimnasio">
+            <img th:src="@{/imagenes/suple7.png}" class="card-img-top" alt="Accesorios de gimnasio">
             <div class="card-body">
               <h5 class="card-title">Carnitech Proteine</h5>
               <p class="card-text">Proporciona ganancia de peso y masa muscular.</p>
@@ -218,7 +219,7 @@
         <!-- Producto 8 -->
         <div class="col-12 col-md-6 col-lg-3">
           <div class="card shadow-sm border-0 h-100">
-            <img src="imagenes/suple8.png" class="card-img-top" alt="Ropa deportiva">
+            <img th:src="@{/imagenes/suple8.png}" class="card-img-top" alt="Ropa deportiva">
             <div class="card-body">
               <h5 class="card-title">Wey Protreine Vainilla</h5>
               <p class="card-text">Proporciona una recuperación muscular rapida.</p>
@@ -236,7 +237,7 @@
     <div class="container">
       <h2 class="fw-bold">Los Mejores Productos Para Ti</h2>
       <p>Seleccionamos lo mejor en nutrición deportiva para que alcances tus metas.</p>
-      <img src="imagenes/portada05.webp" class="img-fluid rounded shadow" alt="Nutrición deportiva">
+  <img th:src="@{/imagenes/portada05.webp}" class="img-fluid rounded shadow" alt="Nutrición deportiva">
     </div>
   </section>
 
@@ -517,7 +518,7 @@
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="pago" id="yape" value="yape">
                     <label class="form-check-label" for="yape">
-                      <img src="/imagenes/yape.png" alt="Yape" style="height:20px;"> Yape
+                      <img th:src="@{/imagenes/yape.png}" alt="Yape" style="height:20px;"> Yape
                     </label>
                   </div>
 
@@ -525,7 +526,7 @@
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="pago" id="plin" value="plin">
                     <label class="form-check-label" for="plin">
-                      <img src="/imagenes/plin.png" alt="Plin" style="height:20px;"> Plin
+                      <img th:src="@{/imagenes/plin.png}" alt="Plin" style="height:20px;"> Plin
                     </label>
                   </div>
                 </div>
