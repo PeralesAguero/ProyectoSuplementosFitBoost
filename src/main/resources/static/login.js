@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const users = JSON.parse(localStorage.getItem('users') || '{}');
     if (users[email] && users[email] === password) {
       localStorage.setItem('usuarioActivo', email);
-      window.location.href = '/'; // Cambiado de '/index' a '/'
+      window.location.href = "/src/main/resources/templates/index.html"; // Cambiado de '/index' a '/'
     } else {
       msg.classList.remove('text-success');
       msg.classList.add('text-danger');

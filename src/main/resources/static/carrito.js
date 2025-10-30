@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const resumenCarrito = document.querySelector('.modal-body .col-md-5 ul.list-group');
   const badgeCarrito = document.querySelectorAll('.badge.bg-primary.ms-2, .badge.bg-primary.rounded-pill, #cart-count, #cart-count-modal');
   const botonesAgregar = document.querySelectorAll('.add-to-cart');
+  const usuarioActivo = localStorage.getItem('usuarioActivo');
+if (!usuarioActivo) {
+  window.location.href = "/src/main/resources/templates/login.html";
+}
 
   // Inicializa el carrito desde localStorage o vacío
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
