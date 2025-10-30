@@ -14,10 +14,19 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
   <!-- Estilos propios -->
+<<<<<<< HEAD
   <link rel="stylesheet" href="/style.css"> 
   <script src="/carrito.js"></script>
   <script src="/index.js"></script>
+=======
+  <link rel="stylesheet" href="src/main/resources/static/styleIndex.css"> 
+  <script src="/src/main/resources/static/carrito.js"></script>
+  <script src="/src/main/resources/static/index.js"></script>
+  <script src="/src/main/resources/static/login.js"></script>
+>>>>>>> 16be5797478709f5a38b11558b604e5272e46314
 </head>
+
+<button id="btn-logout" class="btn btn-danger">Cerrar sesión</button>
 
 <body>
   <!-- Navbar -->
@@ -34,10 +43,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar-star">
         <ul class="navbar-nav ms-auto">
+<<<<<<< HEAD
           <li class="nav-item"><a href="/" class="nav-link active">Inicio</a></li>
           <li class="nav-item"><a href="/productos" class="nav-link">Productos</a></li>
           <li class="nav-item"><a href="/nosotros" class="nav-link">Nosotros</a></li>
           <li class="nav-item"><a href="/tasks" class="nav-link">Tareas</a></li>
+=======
+          <li class="nav-item"><a href="#" class="nav-link active">Inicio</a></li>
+          <li class="nav-item"><a href="/src/main/resources/templates/productos.html" class="nav-link">Productos</a></li>
+          <li class="nav-item"><a href="/src/main/resources/templates/nosotros.html" class="nav-link">Nosotros</a></li>
+          <li class="nav-item"><a href="/src/main/resources/templates/login.html" class="nav-link">Login</a></li>
+>>>>>>> 16be5797478709f5a38b11558b604e5272e46314
           <!-- Carrito de compras -->
           <li class="nav-item ms-3">
             <a href="#" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#modalCarrito">
@@ -518,7 +534,11 @@
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="pago" id="yape" value="yape">
                     <label class="form-check-label" for="yape">
+<<<<<<< HEAD
                       <img th:src="@{/imagenes/yape.png}" alt="Yape" style="height:20px;"> Yape
+=======
+                      <img src="imagenes/yape.png" alt="Yape" style="height:20px;"> Yape
+>>>>>>> 16be5797478709f5a38b11558b604e5272e46314
                     </label>
                   </div>
 
@@ -526,7 +546,11 @@
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="pago" id="plin" value="plin">
                     <label class="form-check-label" for="plin">
+<<<<<<< HEAD
                       <img th:src="@{/imagenes/plin.png}" alt="Plin" style="height:20px;"> Plin
+=======
+                      <img src="imagenes/plin.png" alt="Plin" style="height:20px;"> Plin
+>>>>>>> 16be5797478709f5a38b11558b604e5272e46314
                     </label>
                   </div>
                 </div>
