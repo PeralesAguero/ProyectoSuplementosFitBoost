@@ -25,7 +25,7 @@ public class PaginaController {
 
     @GetMapping("/productos")
     public String productos() {
-        return "Productos";
+        return "productos";
     }
 
 
