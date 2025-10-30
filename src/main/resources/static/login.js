@@ -8,156 +8,105 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainBtn = document.getElementById('main-btn');
   const msg = document.getElementById('msg');
 
-  // Limpiar clases de validación
-  function clearValidation(inputs) {
-    inputs.forEach(input => {
-      input.classList.remove('is-invalid', 'is-valid');
+  // --- CAMBIO ENTRE LOGIN Y REGISTRO ---
+  if (toggleLink) {
+    toggleLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      [loginForm, registerForm].forEach(f => f.classList.toggle('d-none'));
+
+      const esRegistro = loginForm.classList.contains('d-none');
+      formTitle.textContent = esRegistro ? 'Crear Cuenta' : 'Iniciar Sesión';
+      formSubtitle.textContent = esRegistro ? 'Regístrate gratis' : 'Accede a tu cuenta';
+      rememberCheck.classList.toggle('d-none', esRegistro);
+      toggleLink.textContent = esRegistro ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Crea una aquí';
     });
   }
 
-  // Cambiar entre login y registro
-  toggleLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    msg.textContent = '';
-    clearValidation([
-      document.getElementById('email'),
-      document.getElementById('password'),
-      document.getElementById('new-email'),
-      document.getElementById('new-password'),
-      document.getElementById('confirm-password')
-    ]);
-    if (loginForm.classList.contains('d-none')) {
-      loginForm.classList.remove('d-none');
-      registerForm.classList.add('d-none');
-      formTitle.textContent = 'Iniciar Sesión';
-      formSubtitle.textContent = 'Accede a tu cuenta';
-      rememberCheck.classList.remove('d-none');
-      mainBtn.textContent = 'Entrar';
-      toggleLink.textContent = '¿No tienes cuenta? Crea una aquí';
-    } else {
-      loginForm.classList.add('d-none');
-      registerForm.classList.remove('d-none');
-      formTitle.textContent = 'Crear Cuenta';
-      formSubtitle.textContent = 'Regístrate gratis';
-      rememberCheck.classList.add('d-none');
-      toggleLink.textContent = '¿Ya tienes cuenta? Inicia sesión';
-    }
-  });
+  // --- LOGIN ---
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
 
-  // Validación de login
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    clearValidation([emailInput, passwordInput]);
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    let valid = true;
+      if (users[email] && users[email] === password) {
+        localStorage.setItem('usuarioActivo', email);
+        window.location.href = "/src/main/resources/templates/index.html";
+      } else {
+        msg.textContent = 'Correo o contraseña incorrectos.';
+        msg.classList.add('text-danger');
+      }
+    });
+  }
 
-    if (!email) {
-      emailInput.classList.add('is-invalid');
-      valid = false;
-    } else {
-      emailInput.classList.add('is-valid');
-    }
-    if (!password) {
-      passwordInput.classList.add('is-invalid');
-      valid = false;
-    } else {
-      passwordInput.classList.add('is-valid');
-    }
-    if (!valid) {
-      msg.classList.remove('text-success');
-      msg.classList.add('text-danger');
-      msg.textContent = 'Completa todos los campos.';
-      return;
-    }
+  // --- REGISTRO ---
+  if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('new-email').value.trim();
+      const password = document.getElementById('new-password').value;
+      const confirm = document.getElementById('confirm-password').value;
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
 
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    if (users[email] && users[email] === password) {
-      localStorage.setItem('usuarioActivo', email);
-      window.location.href = "/src/main/resources/templates/index.html"; // Cambiado de '/index' a '/'
-    } else {
-      msg.classList.remove('text-success');
-      msg.classList.add('text-danger');
-      msg.textContent = 'Correo o contraseña incorrectos.';
-      emailInput.classList.add('is-invalid');
-      passwordInput.classList.add('is-invalid');
-    }
-  });
+      msg.classList.remove('text-success', 'text-danger');
 
-  // Validación de registro
-  registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const emailInput = document.getElementById('new-email');
-    const passwordInput = document.getElementById('new-password');
-    const confirmInput = document.getElementById('confirm-password');
-    clearValidation([emailInput, passwordInput, confirmInput]);
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const confirm = confirmInput.value;
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    let valid = true;
+      if (users[email]) {
+        msg.textContent = 'El correo ya está registrado.';
+        msg.classList.add('text-danger');
+        return;
+      }
 
-    if (!email) {
-      emailInput.classList.add('is-invalid');
-      valid = false;
-    } else {
-      emailInput.classList.add('is-valid');
+      if (password !== confirm || password.length < 6) {
+        msg.textContent = 'Las contraseñas no coinciden o son demasiado cortas.';
+        msg.classList.add('text-danger');
+        return;
+      }
+
+      users[email] = password;
+      localStorage.setItem('users', JSON.stringify(users));
+      msg.textContent = '✅ ¡Cuenta creada! Ahora puedes iniciar sesión.';
+      msg.classList.add('text-success');
+
+      setTimeout(() => toggleLink.click(), 1500);
+    });
+  }
+});
+
+// --- LOGOUT GLOBAL ---
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'logout-btn') {
+    localStorage.removeItem('usuarioActivo');
+    window.location.href = "/src/main/resources/templates/login.html";
+  }
+});
+
+// --- PROTECCIÓN DE RUTAS ---
+// Aplica en todas las páginas menos login.html y register.html
+document.addEventListener('DOMContentLoaded', () => {
+  const path = window.location.pathname;
+  if (!path.includes('login.html') && !path.includes('register.html')) {
+    const usuarioActivo = localStorage.getItem('usuarioActivo');
+    if (!usuarioActivo) {
+      window.location.href = "/src/main/resources/templates/login.html";
     }
-    if (!password) {
-      passwordInput.classList.add('is-invalid');
-      valid = false;
-    } else {
-      passwordInput.classList.add('is-valid');
-    }
-    if (!confirm) {
-      confirmInput.classList.add('is-invalid');
-      valid = false;
-    } else {
-      confirmInput.classList.add('is-valid');
-    }
-    if (!valid) {
-      msg.textContent = 'Completa todos los campos.';
-      msg.classList.remove('text-success');
-      msg.classList.add('text-danger');
-      return;
-    }
-    if (password.length < 6) {
-      msg.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-      msg.classList.remove('text-success');
-      msg.classList.add('text-danger');
-      passwordInput.classList.add('is-invalid');
-      return;
-    }
-    if (password !== confirm) {
-      msg.textContent = 'Las contraseñas no coinciden.';
-      msg.classList.remove('text-success');
-      msg.classList.add('text-danger');
-      passwordInput.classList.add('is-invalid');
-      confirmInput.classList.add('is-invalid');
-      return;
-    }
-    if (users[email]) {
-      msg.textContent = 'El correo ya está registrado.';
-      msg.classList.remove('text-success');
-      msg.classList.add('text-danger');
-      emailInput.classList.add('is-invalid');
-      return;
-    }
-    users[email] = password;
-    localStorage.setItem('users', JSON.stringify(users));
-    msg.classList.remove('text-danger');
-    msg.classList.add('text-success');
-    msg.textContent = '¡Cuenta creada! Ahora puedes iniciar sesión.';
-    emailInput.classList.remove('is-invalid');
-    passwordInput.classList.remove('is-invalid');
-    confirmInput.classList.remove('is-invalid');
-    emailInput.classList.add('is-valid');
-    passwordInput.classList.add('is-valid');
-    confirmInput.classList.add('is-valid');
-    setTimeout(() => {
-      toggleLink.click();
-    }, 1500);
-  });
+  }
+});
+// --- MOSTRAR NOMBRE DE USUARIO EN NAVBAR ---
+window.addEventListener('load', () => {
+  const spanUsuario = document.getElementById('nombreUsuario');
+  const usuarioActivo = localStorage.getItem('usuarioActivo');
+
+  // Si no hay sesión activa, se redirige
+  if (!usuarioActivo || usuarioActivo.trim() === "") {
+    window.location.href = "/src/main/resources/templates/login.html";
+    return;
+  }
+
+  // Si hay sesión, mostrar el nombre limpio
+  if (spanUsuario) {
+    const nombre = usuarioActivo.split('@')[0]; // parte antes del @
+    spanUsuario.textContent = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+  }
 });

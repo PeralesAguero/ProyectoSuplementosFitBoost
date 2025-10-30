@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Si no hay usuario autenticado, redirige a login.html
 if (!localStorage.getItem('usuarioActivo')) {
-  window.location.href = '/login'; // Esto está bien
+  window.location.href = "/src/main/resources/templates/login.html"; // Esto está bien
 }
 
 // Cerrar sesión
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', function() {
       localStorage.removeItem('usuarioActivo');
-      window.location.href = '/login'; // Esto está bien
+      window.location.href = "/src/main/resources/templates/login.html"; // Esto está bien
     });
   }
 });
@@ -42,5 +42,33 @@ document.addEventListener('DOMContentLoaded', function() {
   const usuario = localStorage.getItem('usuarioActivo');
   if (userLogin && usuario) {
     userLogin.textContent = `Hola, ${usuario}`;
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const userLogin = document.getElementById('user-login');
+  const usuarioActivo = localStorage.getItem('usuarioActivo');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  // 🚨 Si no hay usuario logueado, redirigir a login
+  if (!usuarioActivo) {
+    window.location.href = "/src/main/resources/templates/login.html";
+    return;
+  }
+
+  // 👤 Mostrar nombre del usuario logueado
+  if (userLogin && usuarioActivo) {
+    const nombre = usuarioActivo.includes('@')
+      ? usuarioActivo.split('@')[0]
+      : usuarioActivo;
+    userLogin.textContent = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+  }
+
+  // 🔒 Botón de cerrar sesión
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('usuarioActivo');
+      window.location.href = "/src/main/resources/templates/login.html";
+    });
   }
 });

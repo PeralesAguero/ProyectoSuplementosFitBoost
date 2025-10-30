@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('usuarioActivo');
 
       // Redirigir al login
-      window.location.href = '/login';
+      window.location.href = '/src/main/resources/static/login.js'; // Cambia el path si tu login está en otro lado
     });
   }
 
